@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .desktopicon_img {
+            float: left;
+            margin-left: 7px
+        }
+
+        .block-taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 99%;
+            height: 70px;
+            z-index: 1000000;
+            background: transparent url(../stock/images/repeat_x.png) repeat-x 0 -174px;
+            -webkit-transition: margin-bottom s;
+            -moz-transition: margin-bottom 0s;
+            -o-transition: margin-bottom 1s;
+            transition: margin-bottom 1s
+        }
+
+        .block-taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 99%;
+            height: 70px;
+            z-index: 1000000;
+            background: transparent url(../stock/images/repeat_x.png) repeat-x 0 -174px;
+            -webkit-transition: margin-top s;
+            -moz-transition: margin-top 0s;
+            -o-transition: margin-top 1s;
+            transition: margin-top 1s
+        }
+
+        resp-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+        }
+
+        .resp-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90%;
+            border: 0;
+        }
+    </style>
+
+    <font face="Calibri" color="white">
+        <div class="block-task">
+        <font color="white">
+            <div class="resp-container">
+                <iframe class="resp-iframe" src="File/" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+            </div>
+            <div class="block-taskbar">
+                <center>
+                    <a href="javascript: history.go(-1)">
+                      Vissza
+                    </a>
+                    <a href="javascript: history.go(+1)">
+                        Előre
+                    </a>
+
+    </font>
+    </center>
+    </div>
+    </body>
+    </html>

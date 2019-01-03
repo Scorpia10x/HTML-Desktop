@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Virtual</title>
+    <style class="cp-pen-styles">
+        .block-taskbar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1000000;
+            -webkit-transition: margin-bottom 1s;
+            -moz-transition: margin-bottom 1s;
+            -o-transition: margin-bottom 1s;
+            transition: margin-bottom 1s
+        }
+
+        body {
+            margin: 0;
+        }
+
+        button {
+            margin: 10px;
+        }
+
+        #status-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            border-top: 1px solid #999;
+        }
+
+        #status-bar span {
+            display: inline-block;
+            padding: .5em;
+            border-right: 1px solid #999;
+            cursor: pointer;
+        }
+
+        #status-bar span:hover {
+            background-color: #ddd;
+        }
+
+        html {
+            background: url("back.jpg") no-repeat center fixed;
+            background-size: cover;
+        }
+    </style>
+        <style>
+            .dropbtn {
+                color: white;
+                font-size: 16px;
+                border: none;
+            }
+    
+            .dropup {
+                position: relative;
+                display: inline-block;
+            }
+    
+            .dropup-content {
+                display: none;
+                position: absolute;
+                background-color: #ffffffd7;
+                min-width: 160px;
+                bottom: 50px;
+                z-index: 1;
+            }
+    
+            .dropup-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+    
+            .dropup-content a:hover {
+                background-color: #ccc
+            }
+    
+            .dropup:hover .dropup-content {
+                display: block;
+            }
+    
+            .dropup:hover .dropbtn {}
+        </style>
+    
+</head>
+
+<body>
+
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="WM/jquery-ui.css">
+
+
+<br>
+    <div class="addWindow">
+        <img src="Icons/chromium.svg" height="60" width="60">
+    </div>
+
+
+
+
+    <script src="WM/jquery.js"></script>
+    <script src="WM/jquery-ui.js"></script>
+    <script src="WM/underscore-min.js"></script>
+    <script src="WM/backbone-min.js"></script>
+
+    <script type="text/template" id="window-template">
+        <style> resp-container {
+            position: relative;
+            overflow: hidden;
+            padding-top: 56.25%;
+        }
+        .resp-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90%;
+            border: 0;
+        }
+        </style>
+                <div class="resp-container">
+                        <iframe height="489" width="289"; class="resp-iframe" src="home.html" gesture="media"  allow="encrypted-media" allowfullscreen></iframe>
+                    </div>
+
+</script>
+
+    <script type="text/template" id="bar-template">
+</script>
+
+    <script type="text/template" id="icon-template">
+<%= title %>
+</script>
+
+    <script src="WM/stopExecutionOnTimeout-41c52890748cd7143004e05d3c5f786c66b199.js"></script>
+    <script>// Models
+        var Popup = Backbone.Model.extend({
+            defaults: {
+                handle: ''
+            }
+        });
+
+
+        var PopupList = Backbone.Collection.extend({
+            model: Popup,
+            url: '/'
+        });
+
+        var Popups = new PopupList();
+
+        // Views
+        var Icon = Backbone.View.extend({
+            tagName: 'span',
+            initialize: function () {
+                this.listenTo(this.model, 'destroy', this.remove);
+            },
+            render: function () {
+                var template = _.template($('#icon-template').html(), { title: this.model.get('title') });
+                this.$el.html(template);
+                return this;
+            },
+            events: {
+                'click': 'focus'
+            },
+
+            focus: function (event) {
+                event.preventDefault();
+                this.model.get('handle').dialog('moveToTop');
+            }
+        });
+
+        var StatusBar = Backbone.View.extend({
+            el: '#status-bar',
+            initialize: function () {
+                this.listenTo(Popups, 'add', this.addIcon);
+            },
+            render: function () {
+                var template = _.template($('#bar-template').html());
+                this.$el.html(template);
+            },
+            addIcon: function (popup) {
+                var icon = new Icon({ model: popup });
+                this.$el.append(icon.render().el);
+            }
+        });
+
+        var Popup = Backbone.View.extend({
+            tagName: 'div',
+            render: function () {
+                var view = this;
+                var template = _.template($('#window-template').html(), {});
+                this.$el.html(template);
+                $('body').append(this.el);
+                var title = 'new window';
+                var col = Popups.create({ handle: this.$el, title: title });
+                this.$el.dialog({
+                    autoOpen: true,
+                    title: title,
+                    position: { my: "center+" + Popups.length * 10 + " top+" + Popups.length * 10, at: "center top" },
+                    close: function (event, ui) {
+                        $(this).dialog('destroy').remove();
+                        view.remove();
+                        col.destroy();
+                    }
+                });
+
+            }
+        });
+
+        $(function () {
+            new StatusBar().render();
+            $('.addWindow').click(function (event) {
+                event.preventDefault();
+                new Popup().render();
+            });
+        });
+//# sourceURL=pen.js
+    </script>
+    <html>
+
+        <head>
+            <script>
+    
+                var menuDisplayed = false;
+                var menuBox = null;
+    
+                window.addEventListener("contextmenu", function () {
+                    var left = arguments[0].clientX;
+                    var top = arguments[0].clientY;
+    
+                    menuBox = window.document.querySelector(".menu");
+                    menuBox.style.left = left + "px";
+                    menuBox.style.top = top + "px";
+                    menuBox.style.display = "block";
+    
+                    arguments[0].preventDefault();
+    
+                    menuDisplayed = true;
+                }, false);
+    
+                window.addEventListener("click", function () {
+                    if (menuDisplayed == true) {
+                        menuBox.style.display = "none";
+                    }
+                }, true);
+            </script>
+            <style>
+                .menu {
+                    width: 150px;
+                    border-style: solid;
+                    border-width: 1px;
+                    border-color: rgb(255, 255, 255);
+                    border-radius: 2px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                    position: fixed;
+                    display: none;
+                    background: rgba(255, 255, 255, 0.781)
+                }
+    
+                .menu-item {
+                    height: 20px;
+                }
+    
+                .menu-item:hover {
+                    background-color: #6CB5FF;
+                    cursor: pointer;
+                }
+            </style>
+    
+        </head>
+    
+        <body>
+            <div class="menu">
+                <div class="menu-item">
+                        <font color="black">Böngésző</font>
+                    </a>
+                </div>
+                <hr>
+                <div class="menu-item">
+                    <a href="#">
+                        <font color="black">Fájlkezelő</font>
+                    </a>
+                </div>
+                <hr>
+                <div class="menu-item">
+                    <a href="#">
+                        <font color="black">Súgó</font>
+                    </a>
+                </div>
+                <hr>
+                <div class="menu-item">
+                    <a href="#">
+                        <font color="black">Beállítások</font>
+                    </a>
+                </div>
+                <hr>
+                <div class="menu-item">
+                    <a href="#">
+                        <font color="black">Frissítés</font>
+                    </a>
+                </div>
+            </div>
+    </body>
+    <div class="block-taskbar">
+        <center>
+            <div class="dropup">
+                <div class="dropbtn">
+                    <img src="Icons/archive.svg" height="55" width="55">
+                </div>
+                <div class="dropup-content">
+                    <a href="settings.html">Beállítások</a>
+                    <a href="Search.html">Keresés</a>
+                    <a href="help.html">Súgó</a>
+                    <a href="Start.htm">Főkapcsoló</a>
+                    <a href="update.html">Frissítés</a>
+
+                </div>
+            </div>
+            <img src="Icons/camera.svg" height="55" width="55">
+            <img src="Icons/calendar.svg" height="55" width="55">
+            <img src="Icons/calculator.svg" height="55" width="55">
+            <img src="Icons/maps.svg" height="55" width="55">
+            <img src="Icons/mail.svg" height="55" width="55">
+            <img src="Icons/chromium.svg" height="55" width="55">
+            <img src="Icons/help.svg" height="55" width="55">
+            <img src="Icons/atom.svg" height="55" width="55">
+</div>
+</body>
+
+</html>

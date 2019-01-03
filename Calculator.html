@@ -1,0 +1,144 @@
+	<style>
+						.aj-box
+						{
+						background-color:#5d6563 !important;
+						width:100% !important;
+						border-radius:10px !important;
+						position:relative !important;
+						max-width:250px;
+						padding-bottom:20px;
+						} 
+						.aj-display
+						{
+						background-color:#222 !important;
+						width:92% !important;
+						position:relative !important;
+						left:4% !important;
+						top:20px !important;
+						height:40px !important;
+						margin-bottom:22px;
+						}
+						.aj-display input
+						{
+						position:relative !important;
+						left:2px !important;
+						top:2px !important;
+						height:35px !important;
+						color:black !important;
+						background-color:#bccd95 !important;
+						font-size:21px !important;
+						text-align:right !important;
+						width:96.5%;
+						} 
+						.aj-box p
+						{
+						margin-bottom:6px;
+						}
+						.aj-keys
+						{
+						position:relative !important;
+						top:15px !important;
+						}
+						.aj-button
+						{
+						width:19% !important;
+						height:30px !important;
+						border:none !important;
+						border-radius:8px !important;
+						margin-left:5% !important;
+						cursor:pointer !important;
+						border-top:2px solid transparent !important;
+						}
+						.aj-button.aj-gray
+						{
+						color:white !important;
+						background-color:#6f6f6f !important;
+						border-bottom:black 2px solid !important;
+						border-top:2px #6f6f6f solid !important;
+						margin-left:5% !important;
+						}
+						.aj-button.aj-pink
+						{
+						color:black !important;
+						background-color:#ff4561 !important;
+						border-bottom:black 2px solid !important;
+						}
+						.aj-button.aj-black
+						{
+						color:white !important;
+						background-color:#303030 !important;
+						border-bottom:black 2px solid !important;
+						border-top:2px #303030 solid !important;
+						}
+						.aj-button.aj-orange
+						{
+						color:black !important;
+						background-color:#FF9933 !important;
+						border-bottom:black 2px solid !important;
+						border-top:2px #FF9933 solid !important;
+						}
+						.aj-gray:active
+						{
+						border-top:black 2px solid !important;
+						border-bottom:2px #6f6f6f solid !important;
+						}
+						.aj-pink:active
+						{
+						border-top:black 2px solid !important;
+						border-bottom:#ff4561 2px solid !important;
+						}
+						.aj-black:active
+						{
+						border-top:black 2px solid !important;
+						border-bottom:#303030 2px solid !important;
+						}
+						.aj-orange:active
+						{
+						border-top:black 2px solid !important;
+						border-bottom:#FF9933 2px solid !important;
+						}
+						</style>
+						<div class="aj-box">
+						<div class="aj-display"><input type="text" readonly="" size="18" id="d1514"></div>
+						<div class="aj-keys">
+							<p><input style="margin-left:18px;" type="button" class="aj-button aj-gray" value="mrc" onclick="mrc1514()"><input type="button" class="aj-button aj-gray" value="m-" onclick="mm1514()"><input type="button" class="aj-button aj-gray" value="m+" onclick="mp1514()"><input type="button" class="aj-button aj-pink" value="/" onclick="v1514(&quot;/&quot;)"></p>
+							<p><input type="button" class="aj-button aj-black" value="7" onclick="v1514(&quot;7&quot;)"><input type="button" class="aj-button aj-black" value="8" onclick="v1514(&quot;8&quot;)"><input type="button" class="aj-button aj-black" value="9" onclick="v1514(&quot;9&quot;)"><input type="button" class="aj-button aj-pink" value="*" onclick="v1514(&quot;*&quot;)"></p>
+							<p><input type="button" class="aj-button aj-black" value="4" onclick="v1514(&quot;4&quot;)"><input type="button" class="aj-button aj-black" value="5" onclick="v1514(&quot;5&quot;)"><input type="button" class="aj-button aj-black" value="6" onclick="v1514(&quot;6&quot;)"><input type="button" class="aj-button aj-pink" value="-" onclick="v1514(&quot;-&quot;)"></p>
+							<p><input type="button" class="aj-button aj-black" value="1" onclick="v1514(&quot;1&quot;)"><input type="button" class="aj-button aj-black" value="2" onclick="v1514(&quot;2&quot;)"><input type="button" class="aj-button aj-black" value="3" onclick="v1514(&quot;3&quot;)"><input type="button" class="aj-button aj-pink" value="+" onclick="v1514(&quot;+&quot;)"></p>
+							<p><input type="button" class="aj-button aj-black" value="0" onclick="v1514(&quot;0&quot;)"><input type="button" class="aj-button aj-black" value="." onclick="v1514(&quot;.&quot;)"><input type="button" class="aj-button aj-black" value="C" onclick="c1514(&quot;&quot;)"><input type="button" class="aj-button aj-orange" value="=" onclick="e1514()"></p>
+						</div>
+						</div>
+						<script>
+						var ajm1514 = "";
+						function mp1514()
+						{
+						ajm1514 = document.getElementById("d1514").value;
+						}
+						function mm1514()
+						{
+						ajm1514 = "";
+						}
+						function mrc1514()
+						{
+						document.getElementById("d1514").value=ajm1514;
+						}
+						function c1514(val)
+						{
+						document.getElementById("d1514").value=val;
+						}
+						function v1514(val)
+						{
+						document.getElementById("d1514").value+=val;
+						}
+						function e1514() 
+						{ 
+						try 
+						{ 
+						  c1514(eval(document.getElementById("d1514").value)) 
+						} 
+						catch(e) 
+						{
+						  c1514('Error') 
+						} 
+						}  
+						</script>
